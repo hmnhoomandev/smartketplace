@@ -10,17 +10,22 @@ export default function Header() {
   return (
     <header className="border-b border-gray-200 bg-white">
       <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-4 sm:px-6">
-        <Link href="/" className="text-xl font-bold text-emerald-700">
-          SmartketPlace
+        <Link href="/" className="flex items-center gap-3">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/kultura-logo.svg" alt="Kultura" className="h-7 w-auto" />
+          <span className="flex flex-col leading-tight">
+            <span className="text-lg font-bold text-brand">SmartketPlace</span>
+            <span className="text-xs text-gray-500">Un projet de Kultura</span>
+          </span>
         </Link>
 
         <nav className="relative">
           <button
             type="button"
             onClick={() => setIsCategoriesOpen((open) => !open)}
-            className="flex items-center gap-1 rounded-md px-3 py-2 text-sm font-medium text-gray-700 hover:bg-emerald-50 hover:text-emerald-700"
+            className="flex items-center gap-1 rounded-md px-3 py-2 text-sm font-medium text-gray-700 hover:bg-brand-light hover:text-brand"
           >
-            Categories
+            Catégories
             <span aria-hidden="true">▾</span>
           </button>
 
@@ -31,7 +36,7 @@ export default function Header() {
                   key={category}
                   href={`/?category=${encodeURIComponent(category)}`}
                   onClick={() => setIsCategoriesOpen(false)}
-                  className="block px-4 py-2 text-sm text-gray-700 hover:bg-emerald-50 hover:text-emerald-700"
+                  className="block px-4 py-2 text-sm text-gray-700 hover:bg-brand-light hover:text-brand"
                 >
                   {category}
                 </Link>

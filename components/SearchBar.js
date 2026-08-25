@@ -13,15 +13,15 @@ export default function SearchBar({
         type="text"
         value={searchTerm}
         onChange={(event) => onSearchTermChange(event.target.value)}
-        placeholder="Search products..."
-        className="w-full flex-1 rounded-md border border-gray-300 px-4 py-2 text-sm focus:border-emerald-500 focus:outline-none"
+        placeholder="Rechercher un produit..."
+        className="w-full flex-1 rounded-md border border-gray-300 px-4 py-2 text-sm focus:border-brand focus:outline-none"
       />
       <select
         value={selectedCategory}
         onChange={(event) => onSelectedCategoryChange(event.target.value)}
-        className="w-full rounded-md border border-gray-300 px-4 py-2 text-sm focus:border-emerald-500 focus:outline-none sm:w-56"
+        className="w-full rounded-md border border-gray-300 px-4 py-2 text-sm focus:border-brand focus:outline-none sm:w-56"
       >
-        <option value="">All categories</option>
+        <option value="">Toutes les catégories</option>
         {categories.map((category) => (
           <option key={category} value={category}>
             {category}

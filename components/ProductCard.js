@@ -4,7 +4,7 @@ export default function ProductCard({ product }) {
   return (
     <Link
       href={`/products/${product.id}`}
-      className="group flex flex-col overflow-hidden rounded-lg border border-gray-200 bg-white transition-shadow hover:shadow-md hover:border-emerald-200"
+      className="group flex flex-col overflow-hidden rounded-lg border border-gray-200 bg-white transition-shadow hover:shadow-md hover:border-brand/30"
     >
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
@@ -13,14 +13,14 @@ export default function ProductCard({ product }) {
         className="h-44 w-full object-cover"
       />
       <div className="flex flex-1 flex-col gap-1 p-4">
-        <span className="w-fit rounded-full bg-emerald-50 px-2 py-0.5 text-xs font-medium text-emerald-700">
+        <span className="w-fit rounded-full bg-brand-light px-2 py-0.5 text-xs font-medium text-brand">
           {product.category}
         </span>
         <h3 className="font-semibold text-gray-900 group-hover:underline">
           {product.title}
         </h3>
         <p className="text-sm text-gray-500">{product.location}</p>
-        <p className="mt-auto pt-2 font-semibold text-emerald-700">
+        <p className="mt-auto pt-2 font-semibold text-brand">
           {product.price} {product.currency}
         </p>
       </div>
