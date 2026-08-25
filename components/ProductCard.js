@@ -1,0 +1,29 @@
+import Link from "next/link";
+
+export default function ProductCard({ product }) {
+  return (
+    <Link
+      href={`/products/${product.id}`}
+      className="group flex flex-col overflow-hidden rounded-lg border border-gray-200 bg-white transition-shadow hover:shadow-md"
+    >
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        src={product.image}
+        alt={product.title}
+        className="h-44 w-full object-cover"
+      />
+      <div className="flex flex-1 flex-col gap-1 p-4">
+        <span className="w-fit rounded-full bg-gray-100 px-2 py-0.5 text-xs font-medium text-gray-600">
+          {product.category}
+        </span>
+        <h3 className="font-semibold text-gray-900 group-hover:underline">
+          {product.title}
+        </h3>
+        <p className="text-sm text-gray-500">{product.location}</p>
+        <p className="mt-auto pt-2 font-semibold text-gray-900">
+          {product.price} {product.currency}
+        </p>
+      </div>
+    </Link>
+  );
+}
