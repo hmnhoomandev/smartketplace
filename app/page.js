@@ -2,7 +2,7 @@
 
 import { Suspense, useMemo, useState } from "react";
 import { useSearchParams } from "next/navigation";
-import SearchBar from "@/components/SearchBar";
+import Hero from "@/components/Hero";
 import ProductGrid from "@/components/ProductGrid";
 import MembersSection from "@/components/MembersSection";
 import { products, categories } from "@/data/products";
@@ -28,7 +28,7 @@ function HomeContent() {
 
   return (
     <div className="flex flex-1 flex-col bg-white">
-      <SearchBar
+      <Hero
         searchTerm={searchTerm}
         onSearchTermChange={setSearchTerm}
         selectedCategory={selectedCategory}

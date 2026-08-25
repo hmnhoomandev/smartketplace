@@ -25,14 +25,14 @@ export default async function ProductDetailPage({ params }) {
         />
 
         <div className="flex flex-col gap-3">
-          <span className="w-fit rounded-full bg-gray-100 px-2 py-0.5 text-xs font-medium text-gray-600">
+          <span className="w-fit rounded-full bg-emerald-50 px-2 py-0.5 text-xs font-medium text-emerald-700">
             {product.category}
           </span>
           <h1 className="text-2xl font-bold text-gray-900">
             {product.title}
           </h1>
           <p className="text-sm text-gray-500">{product.location}</p>
-          <p className="text-2xl font-semibold text-gray-900">
+          <p className="text-2xl font-semibold text-emerald-700">
             {product.price} {product.currency}
           </p>
           <p className="text-gray-700">{product.description}</p>

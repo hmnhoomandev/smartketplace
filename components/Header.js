@@ -10,7 +10,7 @@ export default function Header() {
   return (
     <header className="border-b border-gray-200 bg-white">
       <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-4 sm:px-6">
-        <Link href="/" className="text-xl font-bold text-gray-900">
+        <Link href="/" className="text-xl font-bold text-emerald-700">
           SmartketPlace
         </Link>
 
@@ -18,7 +18,7 @@ export default function Header() {
           <button
             type="button"
             onClick={() => setIsCategoriesOpen((open) => !open)}
-            className="flex items-center gap-1 rounded-md px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100"
+            className="flex items-center gap-1 rounded-md px-3 py-2 text-sm font-medium text-gray-700 hover:bg-emerald-50 hover:text-emerald-700"
           >
             Categories
             <span aria-hidden="true">▾</span>
@@ -31,7 +31,7 @@ export default function Header() {
                   key={category}
                   href={`/?category=${encodeURIComponent(category)}`}
                   onClick={() => setIsCategoriesOpen(false)}
-                  className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                  className="block px-4 py-2 text-sm text-gray-700 hover:bg-emerald-50 hover:text-emerald-700"
                 >
                   {category}
                 </Link>
