@@ -5,8 +5,17 @@ import { useSearchParams } from "next/navigation";
 import Hero from "@/components/Hero";
 import ProductGrid from "@/components/ProductGrid";
 import MembersSection from "@/components/MembersSection";
-import { products, categories } from "@/data/products";
+import { products } from "@/data/products";
+import { categories, categoryTree } from "@/data/categories";
 import { members } from "@/data/members";
+
+// Un produit correspond à une catégorie sélectionnée si elle est identique,
+// ou si la catégorie sélectionnée est une catégorie parente de sa sous-catégorie.
+function productMatchesCategory(productCategory, selectedCategory) {
+  if (productCategory === selectedCategory) return true;
+  const parent = categoryTree.find((category) => category.name === selectedCategory);
+  return parent ? parent.subs.includes(productCategory) : false;
+}
 
 function HomeContent() {
   const searchParams = useSearchParams();
@@ -18,7 +27,8 @@ function HomeContent() {
   const filteredProducts = useMemo(() => {
     return products.filter((product) => {
       const matchesCategory =
-        !selectedCategory || product.category === selectedCategory;
+        !selectedCategory ||
+        productMatchesCategory(product.category, selectedCategory);
       const matchesSearch = product.title
         .toLowerCase()
         .includes(searchTerm.toLowerCase());
