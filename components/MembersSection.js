@@ -1,62 +1,45 @@
-function getInitials(name) {
-  const words = name.replace(/[()]/g, "").trim().split(/\s+/);
-  const first = words[0]?.[0] || "";
-  const second = words.length > 1 ? words[1][0] : "";
-  return (first + second).toUpperCase();
-}
+import Link from "next/link";
+import MemberLogo from "@/components/MemberLogo";
 
-function MemberChip({ member }) {
-  const content = (
-    <>
-      <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-brand text-xs font-semibold text-white">
-        {getInitials(member.name)}
-      </span>
-      <span className="truncate text-sm font-medium text-gray-800">
-        {member.name}
-      </span>
-    </>
-  );
-
-  const className =
-    "flex items-center gap-2 rounded-full border border-gray-200 bg-white px-3 py-2 transition-colors hover:border-brand/40 hover:bg-brand-light";
-
-  if (member.url) {
-    return (
-      <a
-        href={member.url}
-        target="_blank"
-        rel="noopener noreferrer"
-        className={className}
-        title={member.name}
-      >
-        {content}
-      </a>
-    );
-  }
-
-  return (
-    <div className={className} title={member.name}>
-      {content}
-    </div>
-  );
-}
+const PREVIEW_COUNT = 12;
 
 export default function MembersSection({ members }) {
+  const preview = members.slice(0, PREVIEW_COUNT);
+
   return (
     <section id="membres" className="border-t border-gray-200 bg-gray-50 scroll-mt-28">
-      <div className="mx-auto max-w-6xl px-4 py-10 sm:px-6">
-        <h2 className="text-xl font-bold text-gray-900">
-          Associations membres
-        </h2>
-        <p className="mt-1 text-sm text-gray-500">
-          Les {members.length} associations membres du réseau Kultura.
-          Cliquez sur une association pour visiter son site (si disponible).
-        </p>
+      <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6">
+        <div className="flex flex-col items-center text-center">
+          <h2 className="text-xl font-bold text-gray-900">
+            Associations membres
+          </h2>
+          <p className="mt-1 max-w-md text-sm text-gray-500">
+            Kultura réunit {members.length} associations membres à Genève.
+          </p>
+        </div>
 
-        <div className="mt-6 flex flex-wrap gap-2">
-          {members.map((member) => (
-            <MemberChip key={member.id} member={member} />
+        <div className="mx-auto mt-8 grid max-w-4xl grid-cols-3 gap-4 sm:grid-cols-4 md:grid-cols-6">
+          {preview.map((member) => (
+            <div
+              key={member.id}
+              className="flex flex-col items-center gap-2"
+              title={member.name}
+            >
+              <MemberLogo member={member} className="h-14 w-14" />
+              <span className="line-clamp-2 text-center text-xs text-gray-600">
+                {member.name}
+              </span>
+            </div>
           ))}
+        </div>
+
+        <div className="mt-8 flex justify-center">
+          <Link
+            href="/associations-membres"
+            className="rounded-md bg-brand px-5 py-2.5 text-sm font-medium text-white hover:bg-brand-dark"
+          >
+            Voir les {members.length} associations membres
+          </Link>
         </div>
       </div>
     </section>

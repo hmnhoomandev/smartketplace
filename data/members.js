@@ -1,8 +1,8 @@
 // Associations membres réelles de Kultura, extraites de
 // https://kultura.ch/les-associations-membres/ (74 associations).
-// Les logos individuels ne sont pas disponibles sur la page source ;
-// un avatar avec les initiales est utilisé à la place (voir MembersSection).
-// Remplacez au cas par cas si vous nous envoyez un vrai logo pour une association.
+// `logo` est optionnel : si absent, un avatar avec les initiales est utilisé
+// (voir MembersSection/AssociationsPage). `logoOnDark: true` signale un logo
+// clair (ex. blanc) qui a besoin d'une tuile sombre pour rester visible.
 export const members = [
   {
     id: "abcd",
@@ -123,6 +123,8 @@ export const members = [
     id: "caravane-sans-frontieres",
     name: "Caravane sans frontières",
     url: "https://csf-ge.ch/",
+    logo: "/logos/caravane-sans-frontieres.svg",
+    logoOnDark: true,
   },
   {
     id: "centre-armenien-de-geneve",
