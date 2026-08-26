@@ -13,21 +13,25 @@ export const members = [
     id: "africa-21",
     name: "Africa 21",
     url: "https://www.africa21.org/",
+    logo: "/logos/africa-21.svg",
   },
   {
     id: "afro-lgbtqia",
     name: "Afro LGBTQIA+",
     url: "https://afrolgbt.ch/",
+    logo: "/logos/afro-lgbtqia.png",
   },
   {
     id: "agents-de-sante",
     name: "Agents de Santé",
     url: "https://agentsante.ch/",
+    logo: "/logos/agents-de-sante.png",
   },
   {
     id: "aidez-nous-a-aider",
     name: "Aidez-nous à Aider",
     url: "https://ayudenos-a-ayudar.org/",
+    logo: "/logos/aidez-nous-a-aider.png",
   },
   {
     id: "aipazcomun",
@@ -48,11 +52,13 @@ export const members = [
     id: "apprentissage-sans-frontieres",
     name: "Apprentissage sans Frontières",
     url: "http://www.asf-ge.org",
+    logo: "/logos/apprentissage-sans-frontieres.png",
   },
   {
     id: "asile-ch",
     name: "Asile.ch",
     url: "https://asile.ch/",
+    logo: "/logos/asile-ch.png",
   },
   {
     id: "arte-andaluz-de-espana-flamenca",
@@ -63,6 +69,7 @@ export const members = [
     id: "asociacion-colombiana-de-investigadores-en-suiza-acis",
     name: "Asociación Colombiana de Investigadores en Suiza ACIS",
     url: "http://www.acis.ch/",
+    logo: "/logos/asociacion-colombiana-de-investigadores-en-suiza-acis.png",
   },
   {
     id: "association-culturelle-luso-suisse-lacos",
@@ -78,16 +85,19 @@ export const members = [
     id: "association-de-solidarite-de-peuples-geneve-asop",
     name: "Association de solidarité de peuples Genève – ASOP",
     url: "https://asopgeneve.org/",
+    logo: "/logos/association-de-solidarite-de-peuples-geneve-asop.webp",
   },
   {
     id: "association-des-alevis-aag",
     name: "Association des Alevis (AAG)",
     url: "https://ch.linkedin.com/in/al%C3%A9vis-de-gen%C3%A8ve-8b4105266",
+    logo: "/logos/association-des-alevis-aag.jpeg",
   },
   {
     id: "association-des-dominicains-de-suisse-ades",
     name: "Association des Dominicains de Suisse ADES",
     url: null,
+    logo: "/logos/association-des-dominicains-de-suisse-ades.webp",
   },
   {
     id: "association-des-guineens-de-geneve-et-de-france-voisine-aggf",
@@ -98,6 +108,7 @@ export const members = [
     id: "association-des-ivoiriens-de-geneve-et-de-france-voisine-aig",
     name: "Association des Ivoiriens de Genève et de France voisine- AIG",
     url: "https://www.facebook.com/p/Association-Des-Ivoiriennes-Et-Ivoiriens-De-Gen%C3%A8ve-100069833843637/",
+    logo: "/logos/association-des-ivoiriens-de-geneve-et-de-france-voisine-aig.jpg",
   },
   {
     id: "association-des-nomades-mongolie",
@@ -135,6 +146,7 @@ export const members = [
     id: "centre-kurde-des-droits-de-l-homme",
     name: "Centre Kurde des Droits de l’Homme",
     url: "https://www.kurd-chr.ch/FR/",
+    logo: "/logos/centre-kurde-des-droits-de-l-homme.png",
   },
   {
     id: "cercle-martin-buber",
@@ -145,6 +157,7 @@ export const members = [
     id: "contre-le-racisme-anti-noir-cran",
     name: "Contre le Racisme Anti Noir CRAN",
     url: "http://www.lecran.org",
+    logo: "/logos/contre-le-racisme-anti-noir-cran.png",
   },
   {
     id: "dare",
@@ -155,11 +168,13 @@ export const members = [
     id: "dem-up",
     name: "Dem’Up",
     url: "https://www.demup.org/",
+    logo: "/logos/dem-up.png",
   },
   {
     id: "deutscher-internationaler-club-in-genf",
     name: "Deutscher Internationaler Club in Genf",
     url: "https://dicg.org/",
+    logo: "/logos/deutscher-internationaler-club-in-genf.png",
   },
   {
     id: "diverscite",
@@ -170,6 +185,7 @@ export const members = [
     id: "elisa-asile",
     name: "Elisa-Asile",
     url: "https://www.elisa.ch/",
+    logo: "/logos/elisa-asile.png",
   },
   {
     id: "encontro-rencontre",
@@ -205,11 +221,13 @@ export const members = [
     id: "flag21",
     name: "Flag21",
     url: "http://www.flag21.ch",
+    logo: "/logos/flag21.png",
   },
   {
     id: "ge-care-ukraine",
     name: "Ge Care Ukraine",
     url: "https://www.facebook.com/profile.php?id=100082326467348",
+    logo: "/logos/ge-care-ukraine.jpg",
   },
   {
     id: "horizon",
@@ -220,6 +238,7 @@ export const members = [
     id: "interstices",
     name: "Interstices",
     url: "http://associationinterstices.ch",
+    logo: "/logos/interstices.png",
   },
   {
     id: "josephine-zola",
@@ -230,26 +249,31 @@ export const members = [
     id: "le-petit-escabeau",
     name: "Le Petit Escabeau",
     url: "https://lepetitescabeau.ch/",
+    logo: "/logos/le-petit-escabeau.png",
   },
   {
     id: "le-pont",
     name: "Le Pont",
     url: "https://lepontgeneve.org",
+    logo: "/logos/le-pont.jpg",
   },
   {
     id: "lecture-et-compagnie",
     name: "Lecture et Compagnie",
     url: "http://www.lectureetcompagnie.ch",
+    logo: "/logos/lecture-et-compagnie.png",
   },
   {
     id: "les-idees-editions",
     name: "LES IDEES – éditions",
     url: "https://www.les-idees.ch/",
+    logo: "/logos/les-idees-editions.png",
   },
   {
     id: "livre-moi",
     name: "Livre moi",
     url: "http://livremoi.ch",
+    logo: "/logos/livre-moi.png",
   },
   {
     id: "maman-n-deye-diallo-amnd",
@@ -260,26 +284,32 @@ export const members = [
     id: "marad",
     name: "MARAD",
     url: "https://maradcollectif.ch/",
+    logo: "/logos/marad.png",
   },
   {
     id: "media-film-amf",
     name: "Media Film ( AMF)",
     url: "http://www.associationmediafilm.com",
+    logo: "/logos/media-film-amf.png",
   },
   {
     id: "meridional",
     name: "Meridional",
     url: "https://meridional.org/",
+    logo: "/logos/meridional.jpg",
+    logoOnDark: true,
   },
   {
     id: "mouvement-pour-une-agriculture-paysanne-et-citoyenne-mapc",
     name: "Mouvement pour une agriculture paysanne et citoyenne (MAPC)",
     url: "https://mapc-ge.ch/",
+    logo: "/logos/mouvement-pour-une-agriculture-paysanne-et-citoyenne-mapc.png",
   },
   {
     id: "now-we-are-rising-nwar",
     name: "Now We Are Rising NWAR",
     url: "https://nwar.ch/en/",
+    logo: "/logos/now-we-are-rising-nwar.webp",
   },
   {
     id: "permalife",
@@ -290,6 +320,8 @@ export const members = [
     id: "pervenches",
     name: "Pervenches",
     url: "https://associationpervenches.ch",
+    logo: "/logos/pervenches.png",
+    logoOnDark: true,
   },
   {
     id: "picca",
@@ -300,11 +332,13 @@ export const members = [
     id: "quartiers-collaboratifs",
     name: "Quartiers Collaboratifs",
     url: "https://quartiers-collaboratifs.ch/presentation/",
+    logo: "/logos/quartiers-collaboratifs.jpg",
   },
   {
     id: "relier",
     name: "Relier",
     url: "https://relier.ch/",
+    logo: "/logos/relier.png",
   },
   {
     id: "resilire",
@@ -315,11 +349,13 @@ export const members = [
     id: "rock-your-life",
     name: "Rock your life",
     url: "https://schweiz.rockyourlife.org/fr/",
+    logo: "/logos/rock-your-life.png",
   },
   {
     id: "rookie-slash",
     name: "Rookie Slash",
     url: "https://rookieslash.org/en/a-propos-de-nous/",
+    logo: "/logos/rookie-slash.png",
   },
   {
     id: "salmaa",
@@ -340,11 +376,13 @@ export const members = [
     id: "swiss-arab-cultural-alliance-platform",
     name: "Swiss Arab – Cultural Alliance Platform",
     url: "https://www.swissarab-cap.ch/",
+    logo: "/logos/swiss-arab-cultural-alliance-platform.webp",
   },
   {
     id: "thrive",
     name: "THRIVE",
     url: "https://thrive-association.ch/",
+    logo: "/logos/thrive.png",
   },
   {
     id: "travailleurs-invisibles-geneve-tig",
@@ -365,6 +403,7 @@ export const members = [
     id: "ukrain-reborn",
     name: "Ukrain Reborn",
     url: "https://reborn.ch/",
+    logo: "/logos/ukrain-reborn.png",
   },
   {
     id: "universite-populaire-africaine-upaf",
