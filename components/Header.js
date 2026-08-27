@@ -14,28 +14,28 @@ export default function Header() {
       {/* Barre du haut : logo + connexion / inscription */}
       <div className="border-b border-gray-100">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3 sm:px-6">
-          <Link href="/" className="flex items-center gap-3">
+          <Link href="/" className="flex items-end gap-3">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src="/kultura-logo.svg"
               alt="Kultura"
               className="h-7 w-auto"
             />
-            <span className="text-lg font-bold text-brand">
-              La place de marché
+            <span className="text-lg font-bold leading-none text-brand">
+              La Place de Marché
             </span>
           </Link>
 
           <div className="flex items-center gap-1.5 sm:gap-2">
             <Link
               href="/login"
-              className="rounded-md px-2 py-1.5 text-xs font-medium text-gray-700 hover:bg-brand-light hover:text-brand sm:px-3 sm:text-sm"
+              className="rounded-md bg-brand px-2 py-1.5 text-xs font-medium text-white hover:bg-brand-dark sm:px-3 sm:text-sm"
             >
               Se connecter
             </Link>
             <Link
               href="/signup"
-              className="rounded-md bg-brand px-2 py-1.5 text-xs font-medium text-white hover:bg-brand-dark sm:px-3 sm:text-sm"
+              className="rounded-md px-2 py-1.5 text-xs font-medium text-gray-700 hover:bg-brand-light hover:text-brand sm:px-3 sm:text-sm"
             >
               S&apos;inscrire
             </Link>
@@ -45,7 +45,7 @@ export default function Header() {
 
       {/* Barre de navigation secondaire : catégories, associations, contact... */}
       <nav className="bg-brand">
-        <div className="mx-auto flex max-w-6xl items-center overflow-x-auto px-4 sm:px-6">
+        <div className="mx-auto flex max-w-6xl flex-wrap items-center px-4 sm:px-6">
           <CategoryMegaMenu />
           {NAV_LINKS.map((link) => (
             <span key={link.href} className="flex shrink-0 items-center">
