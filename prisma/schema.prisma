@@ -1,0 +1,73 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client"
+  output   = "../app/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum Role {
+  MEMBER
+  ADMIN
+}
+
+enum MembershipStatus {
+  PENDING
+  APPROVED
+  REJECTED
+}
+
+enum AccountType {
+  INDIVIDUAL
+  COMPANY
+}
+
+model Member {
+  id           String            @id @default(cuid())
+  username     String            @unique
+  email        String            @unique
+  passwordHash String
+  phone        String?
+  accountType  AccountType       @default(INDIVIDUAL)
+  companyName  String?
+  role         Role              @default(MEMBER)
+  status       MembershipStatus  @default(PENDING)
+  createdAt    DateTime          @default(now())
+  updatedAt    DateTime          @updatedAt
+
+  resetTokens  PasswordResetToken[]
+  products     Product[]
+}
+
+model PasswordResetToken {
+  id        String   @id @default(cuid())
+  token     String   @unique
+  memberId  String
+  member    Member   @relation(fields: [memberId], references: [id], onDelete: Cascade)
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+}
+
+// Préparé pour la Phase suivante (tableau de bord vendeur) — pas encore
+// utilisé par l'UI, mais le schéma est prêt pour éviter une migration
+// cassante plus tard.
+model Product {
+  id                String   @id @default(cuid())
+  title             String
+  description       String
+  price             Decimal  @db.Decimal(10, 2)
+  currency          String   @default("CHF")
+  category          String
+  location          String
+  quantity          Int      @default(1)
+  shippingAvailable Boolean  @default(false)
+  shippingDelay     String?
+  ownerId           String
+  owner             Member   @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+}

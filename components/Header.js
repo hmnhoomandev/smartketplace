@@ -1,5 +1,6 @@
 import Link from "next/link";
 import CategoryMegaMenu from "@/components/CategoryMegaMenu";
+import { auth } from "@/auth";
 
 // Liens de la barre de navigation secondaire, en plus du méga-menu Catégories.
 // Pour ajouter un nouvel élément plus tard, il suffit d'ajouter une ligne ici.
@@ -8,7 +9,9 @@ const NAV_LINKS = [
   { label: "Contact", href: "/contact" },
 ];
 
-export default function Header() {
+export default async function Header() {
+  const session = await auth();
+
   return (
     <header className="border-b border-gray-200 bg-white">
       {/* Barre du haut : logo + connexion / inscription */}
@@ -27,18 +30,34 @@ export default function Header() {
           </Link>
 
           <div className="flex items-center gap-1.5 sm:gap-2">
-            <Link
-              href="/login"
-              className="rounded-md bg-brand px-2 py-1.5 text-xs font-medium text-white hover:bg-brand-dark sm:px-3 sm:text-sm"
-            >
-              Se connecter
-            </Link>
-            <Link
-              href="/signup"
-              className="rounded-md px-2 py-1.5 text-xs font-medium text-gray-700 hover:bg-brand-light hover:text-brand sm:px-3 sm:text-sm"
-            >
-              S&apos;inscrire
-            </Link>
+            {session ? (
+              <>
+                <span className="hidden text-sm text-gray-600 sm:inline">
+                  {session.user?.name}
+                </span>
+                <Link
+                  href="/dashboard"
+                  className="rounded-md bg-brand px-2 py-1.5 text-xs font-medium text-white hover:bg-brand-dark sm:px-3 sm:text-sm"
+                >
+                  Mon espace
+                </Link>
+              </>
+            ) : (
+              <>
+                <Link
+                  href="/login"
+                  className="rounded-md bg-brand px-2 py-1.5 text-xs font-medium text-white hover:bg-brand-dark sm:px-3 sm:text-sm"
+                >
+                  Se connecter
+                </Link>
+                <Link
+                  href="/signup"
+                  className="rounded-md px-2 py-1.5 text-xs font-medium text-gray-700 hover:bg-brand-light hover:text-brand sm:px-3 sm:text-sm"
+                >
+                  S&apos;inscrire
+                </Link>
+              </>
+            )}
           </div>
         </div>
       </div>
