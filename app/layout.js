@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata = {
-  title: "SmartketPlace — Un projet de Kultura",
+  title: "Kultura — La place de marché",
   description:
     "Achetez et vendez des produits et services au sein de la communauté Kultura.",
 };

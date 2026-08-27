@@ -21,13 +21,8 @@ export default function Header() {
               alt="Kultura"
               className="h-7 w-auto"
             />
-            <span className="flex flex-col leading-tight">
-              <span className="text-lg font-bold text-brand">
-                SmartketPlace
-              </span>
-              <span className="hidden text-xs text-gray-500 sm:block">
-                Un projet de Kultura
-              </span>
+            <span className="text-lg font-bold text-brand">
+              La place de marché
             </span>
           </Link>
 
@@ -49,17 +44,21 @@ export default function Header() {
       </div>
 
       {/* Barre de navigation secondaire : catégories, associations, contact... */}
-      <nav className="mx-auto flex max-w-6xl items-center gap-1 overflow-x-auto px-4 py-1 sm:px-6">
-        <CategoryMegaMenu />
-        {NAV_LINKS.map((link) => (
-          <Link
-            key={link.href}
-            href={link.href}
-            className="shrink-0 rounded-md px-3 py-2 text-sm font-medium text-gray-700 hover:bg-brand-light hover:text-brand"
-          >
-            {link.label}
-          </Link>
-        ))}
+      <nav className="bg-brand">
+        <div className="mx-auto flex max-w-6xl items-center overflow-x-auto px-4 sm:px-6">
+          <CategoryMegaMenu />
+          {NAV_LINKS.map((link) => (
+            <span key={link.href} className="flex shrink-0 items-center">
+              <span className="h-4 w-px shrink-0 bg-white/40" aria-hidden="true" />
+              <Link
+                href={link.href}
+                className="shrink-0 px-3 py-2 text-sm font-medium text-white hover:bg-brand-dark"
+              >
+                {link.label}
+              </Link>
+            </span>
+          ))}
+        </div>
       </nav>
     </header>
   );

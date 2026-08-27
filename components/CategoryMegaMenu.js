@@ -6,64 +6,78 @@ import { categoryTree } from "@/data/categories";
 
 export default function CategoryMegaMenu() {
   const [isOpen, setIsOpen] = useState(false);
+  const [activeParent, setActiveParent] = useState(null);
   const containerRef = useRef(null);
 
   useEffect(() => {
     function handleClickOutside(event) {
       if (containerRef.current && !containerRef.current.contains(event.target)) {
         setIsOpen(false);
+        setActiveParent(null);
       }
     }
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
+  function closeAll() {
+    setIsOpen(false);
+    setActiveParent(null);
+  }
+
   return (
     <div
       ref={containerRef}
       className="relative shrink-0"
       onMouseEnter={() => setIsOpen(true)}
-      onMouseLeave={() => setIsOpen(false)}
+      onMouseLeave={closeAll}
     >
       <button
         type="button"
         onClick={() => setIsOpen((open) => !open)}
-        className="flex items-center gap-1 rounded-md px-3 py-2 text-sm font-medium text-gray-700 hover:bg-brand-light hover:text-brand"
+        className="flex shrink-0 items-center gap-1 px-3 py-2 text-sm font-medium text-white hover:bg-brand-dark"
       >
         Catégories
         <span aria-hidden="true">▾</span>
       </button>
 
       {isOpen && (
-        <div className="absolute left-0 z-20 mt-1 w-[min(90vw,48rem)] rounded-md border border-gray-200 bg-white p-4 shadow-lg">
-          <div className="grid max-h-[70vh] grid-cols-2 gap-x-6 gap-y-4 overflow-y-auto sm:grid-cols-3 lg:grid-cols-4">
-            {categoryTree.map((category) => (
-              <div key={category.name}>
-                <Link
-                  href={`/?category=${encodeURIComponent(category.name)}`}
-                  onClick={() => setIsOpen(false)}
-                  className="text-sm font-semibold text-gray-900 hover:text-brand"
-                >
-                  {category.name}
-                </Link>
+        <div className="absolute left-0 z-20 mt-0 w-64 rounded-md border border-gray-200 bg-white py-1 shadow-lg">
+          {categoryTree.map((category) => (
+            <div
+              key={category.name}
+              className="relative"
+              onMouseEnter={() => setActiveParent(category.name)}
+            >
+              <Link
+                href={`/?category=${encodeURIComponent(category.name)}`}
+                onClick={closeAll}
+                className="flex items-center justify-between px-4 py-2 text-sm text-gray-700 hover:bg-brand-light hover:text-brand"
+              >
+                {category.name}
                 {category.subs.length > 0 && (
-                  <ul className="mt-1 space-y-1">
-                    {category.subs.map((sub) => (
-                      <li key={sub}>
-                        <Link
-                          href={`/?category=${encodeURIComponent(sub)}`}
-                          onClick={() => setIsOpen(false)}
-                          className="text-sm text-gray-500 hover:text-brand"
-                        >
-                          {sub}
-                        </Link>
-                      </li>
-                    ))}
-                  </ul>
+                  <span aria-hidden="true" className="text-gray-400">
+                    ▸
+                  </span>
                 )}
-              </div>
-            ))}
-          </div>
+              </Link>
+
+              {activeParent === category.name && category.subs.length > 0 && (
+                <div className="absolute left-full top-0 z-30 w-56 rounded-md border border-gray-200 bg-white py-1 shadow-lg">
+                  {category.subs.map((sub) => (
+                    <Link
+                      key={sub}
+                      href={`/?category=${encodeURIComponent(sub)}`}
+                      onClick={closeAll}
+                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-brand-light hover:text-brand"
+                    >
+                      {sub}
+                    </Link>
+                  ))}
+                </div>
+              )}
+            </div>
+          ))}
         </div>
       )}
     </div>
