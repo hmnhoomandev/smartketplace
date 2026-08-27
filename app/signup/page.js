@@ -21,9 +21,9 @@ export default function SignupPage() {
       username: formData.get("username"),
       email: formData.get("email"),
       password: formData.get("password"),
-      phone: formData.get("phone"),
+      phone: formData.get("phone") || "",
       accountType,
-      companyName: formData.get("companyName"),
+      companyName: formData.get("companyName") || "",
     };
 
     setIsSubmitting(true);

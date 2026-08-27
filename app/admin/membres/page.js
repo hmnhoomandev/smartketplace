@@ -1,4 +1,5 @@
 import { redirect } from "next/navigation";
+import Link from "next/link";
 import { auth } from "@/auth";
 import { prisma } from "@/lib/prisma";
 import AdminMemberRow from "@/components/AdminMemberRow";
@@ -21,9 +22,17 @@ export default async function AdminMembresPage() {
 
   return (
     <div className="mx-auto w-full max-w-4xl flex-1 px-4 py-10 sm:px-6">
-      <h1 className="text-2xl font-bold text-gray-900">
-        Inscriptions en attente
-      </h1>
+      <div className="flex items-center justify-between">
+        <h1 className="text-2xl font-bold text-gray-900">
+          Inscriptions en attente
+        </h1>
+        <Link
+          href="/admin/membres/tous"
+          className="text-sm text-brand hover:underline"
+        >
+          Voir tous les membres &rarr;
+        </Link>
+      </div>
       <p className="mt-1 text-sm text-gray-500">
         {pendingMembers.length} inscription
         {pendingMembers.length !== 1 ? "s" : ""} à valider.

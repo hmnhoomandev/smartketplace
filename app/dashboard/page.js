@@ -25,12 +25,20 @@ export default async function DashboardPage() {
       </div>
 
       {session.user?.role === "ADMIN" && (
-        <a
-          href="/admin/membres"
-          className="mt-6 inline-block rounded-md bg-brand px-4 py-2 text-sm font-medium text-white hover:bg-brand-dark"
-        >
-          Gérer les inscriptions en attente
-        </a>
+        <div className="mt-6 flex gap-3">
+          <a
+            href="/admin/membres"
+            className="inline-block rounded-md bg-brand px-4 py-2 text-sm font-medium text-white hover:bg-brand-dark"
+          >
+            Gérer les inscriptions en attente
+          </a>
+          <a
+            href="/admin/membres/tous"
+            className="inline-block rounded-md border border-gray-300 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100"
+          >
+            Voir tous les membres
+          </a>
+        </div>
       )}
     </div>
   );

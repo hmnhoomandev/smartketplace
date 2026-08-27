@@ -10,13 +10,21 @@ export default function AdminMemberRow({ member }) {
   async function updateStatus(status) {
     setIsSubmitting(true);
     try {
-      await fetch(`/api/admin/members/${member.id}`, {
+      const response = await fetch(`/api/admin/members/${member.id}`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ status }),
       });
+      if (!response.ok) {
+        setIsSubmitting(false);
+        return;
+      }
+      // Ne pas remettre isSubmitting à false ici : cette ligne va disparaître
+      // du tableau une fois le refresh terminé (le membre n'est plus PENDING).
+      // Le faire quand même provoque une mise à jour d'état sur un nœud en
+      // cours de démontage, ce qui casse la réconciliation DOM de React.
       router.refresh();
-    } finally {
+    } catch {
       setIsSubmitting(false);
     }
   }
