@@ -1,14 +1,5 @@
 # Demo Q&A Prep — Technical Questions You Might Get
 
-This is prep material for your demo. Each answer is written so you can
-say it in your own words — you don't need to memorize it, just
-understand the idea behind it. Read through once, and if a question
-comes up live that isn't here, it's fine to say "good question, let me
-look into that and follow up" — that's a normal, professional answer,
-not a weakness.
-
----
-
 ## 1. Tech stack & architecture
 
 **Q: What's the tech stack?**
