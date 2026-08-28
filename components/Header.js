@@ -1,5 +1,6 @@
 import Link from "next/link";
 import CategoryMegaMenu from "@/components/CategoryMegaMenu";
+import CartButton from "@/components/CartButton";
 import { auth } from "@/auth";
 
 // Liens de la barre de navigation secondaire, en plus du méga-menu Catégories.
@@ -30,6 +31,7 @@ export default async function Header() {
           </Link>
 
           <div className="flex items-center gap-1.5 sm:gap-2">
+            <CartButton />
             {session ? (
               <>
                 <span className="hidden text-sm text-gray-600 sm:inline">

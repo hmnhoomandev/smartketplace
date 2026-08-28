@@ -36,6 +36,20 @@ export async function POST(request) {
 
   const data = result.data;
 
+  let ownerId = session.user.id;
+  if (session.user.role === "ADMIN" && data.ownerId) {
+    const owner = await prisma.member.findUnique({
+      where: { id: data.ownerId },
+    });
+    if (!owner) {
+      return NextResponse.json(
+        { error: "Membre introuvable." },
+        { status: 400 }
+      );
+    }
+    ownerId = owner.id;
+  }
+
   const product = await prisma.product.create({
     data: {
       title: data.title,
@@ -48,7 +62,7 @@ export async function POST(request) {
       quantity: data.quantity,
       shippingAvailable: data.shippingAvailable,
       shippingDelay: data.shippingAvailable ? data.shippingDelay || null : null,
-      ownerId: session.user.id,
+      ownerId,
     },
   });
 

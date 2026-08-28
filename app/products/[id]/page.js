@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { prisma } from "@/lib/prisma";
+import AddToCartButton from "@/components/AddToCartButton";
 
 const TYPE_LABELS = {
   PHYSICAL: "Produit physique",
@@ -53,6 +54,13 @@ export default async function ProductDetailPage({ params }) {
             {Number(product.price)} {product.currency}
           </p>
           <p className="text-gray-700">{product.description}</p>
+
+          {product.quantity > 0 && (
+            <AddToCartButton
+              productId={product.id}
+              className="w-fit rounded-md bg-brand px-5 py-2 text-sm font-medium text-white hover:bg-brand-dark"
+            />
+          )}
 
           <div className="mt-2 flex flex-col gap-1 border-t border-gray-100 pt-3 text-sm text-gray-600">
             <p>

@@ -3,9 +3,12 @@ import { auth } from "@/auth";
 import { prisma } from "@/lib/prisma";
 import { productSchema } from "@/lib/validation";
 
-async function assertOwnership(id, userId) {
+async function assertAccess(id, session) {
   const product = await prisma.product.findUnique({ where: { id } });
-  if (!product || product.ownerId !== userId) return null;
+  if (!product) return null;
+  if (product.ownerId !== session.user.id && session.user.role !== "ADMIN") {
+    return null;
+  }
   return product;
 }
 
@@ -16,7 +19,7 @@ export async function PATCH(request, { params }) {
   }
 
   const { id } = await params;
-  const existing = await assertOwnership(id, session.user.id);
+  const existing = await assertAccess(id, session);
   if (!existing) {
     return NextResponse.json({ error: "Introuvable." }, { status: 404 });
   }
@@ -33,6 +36,21 @@ export async function PATCH(request, { params }) {
 
   const data = result.data;
 
+  // Un admin peut réassigner un produit à un autre membre.
+  let ownerId = existing.ownerId;
+  if (session.user.role === "ADMIN" && data.ownerId) {
+    const owner = await prisma.member.findUnique({
+      where: { id: data.ownerId },
+    });
+    if (!owner) {
+      return NextResponse.json(
+        { error: "Membre introuvable." },
+        { status: 400 }
+      );
+    }
+    ownerId = owner.id;
+  }
+
   const product = await prisma.product.update({
     where: { id },
     data: {
@@ -46,6 +64,7 @@ export async function PATCH(request, { params }) {
       quantity: data.quantity,
       shippingAvailable: data.shippingAvailable,
       shippingDelay: data.shippingAvailable ? data.shippingDelay || null : null,
+      ownerId,
     },
   });
 
@@ -59,7 +78,7 @@ export async function DELETE(request, { params }) {
   }
 
   const { id } = await params;
-  const existing = await assertOwnership(id, session.user.id);
+  const existing = await assertAccess(id, session);
   if (!existing) {
     return NextResponse.json({ error: "Introuvable." }, { status: 404 });
   }

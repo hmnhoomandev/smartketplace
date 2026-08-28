@@ -1,4 +1,5 @@
 import Link from "next/link";
+import AddToCartButton from "@/components/AddToCartButton";
 
 export default function ProductCard({ product }) {
   return (
@@ -29,6 +30,7 @@ export default function ProductCard({ product }) {
         <p className="mt-auto pt-2 font-semibold text-brand">
           {product.price} {product.currency}
         </p>
+        <AddToCartButton productId={product.id} className="mt-2 rounded-md bg-brand px-3 py-1.5 text-xs font-medium text-white hover:bg-brand-dark" />
       </div>
     </Link>
   );

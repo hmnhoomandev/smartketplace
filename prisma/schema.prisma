@@ -32,6 +32,14 @@ enum ProductType {
   SERVICE
 }
 
+enum OrderStatus {
+  PENDING
+  ACCEPTED
+  DECLINED
+  COMPLETED
+  CANCELLED
+}
+
 model Member {
   id           String            @id @default(cuid())
   username     String            @unique
@@ -47,6 +55,8 @@ model Member {
 
   resetTokens  PasswordResetToken[]
   products     Product[]
+  purchases    Order[]           @relation("BuyerOrders")
+  sales        Order[]           @relation("SellerOrders")
 }
 
 model PasswordResetToken {
@@ -75,4 +85,24 @@ model Product {
   owner             Member      @relation(fields: [ownerId], references: [id], onDelete: Cascade)
   createdAt         DateTime    @default(now())
   updatedAt         DateTime    @updatedAt
+
+  orders            Order[]
+}
+
+// Une "commande" ici est une demande/réservation, pas un paiement réel :
+// l'acheteur exprime son intérêt, le vendeur accepte/refuse, puis les deux
+// s'arrangent en dehors du site pour l'échange effectif.
+model Order {
+  id        String      @id @default(cuid())
+  productId String
+  product   Product     @relation(fields: [productId], references: [id], onDelete: Cascade)
+  buyerId   String
+  buyer     Member      @relation("BuyerOrders", fields: [buyerId], references: [id], onDelete: Cascade)
+  sellerId  String
+  seller    Member      @relation("SellerOrders", fields: [sellerId], references: [id], onDelete: Cascade)
+  quantity  Int         @default(1)
+  status    OrderStatus @default(PENDING)
+  message   String?
+  createdAt DateTime    @default(now())
+  updatedAt DateTime    @updatedAt
 }

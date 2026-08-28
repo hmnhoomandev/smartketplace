@@ -10,15 +10,48 @@ const TYPE_LABELS = {
   SERVICE: "Service",
 };
 
-export default function ProductForm({ product }) {
+export default function ProductForm({
+  product,
+  members,
+  redirectTo = "/dashboard/produits",
+}) {
   const router = useRouter();
   const isEdit = Boolean(product);
+  const isAdmin = Boolean(members);
 
   const [shippingAvailable, setShippingAvailable] = useState(
     product?.shippingAvailable ?? false
   );
+  const [imageUrl, setImageUrl] = useState(product?.image || "");
+  const [isUploading, setIsUploading] = useState(false);
   const [error, setError] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  async function handleImageChange(event) {
+    const file = event.target.files?.[0];
+    if (!file) return;
+
+    setIsUploading(true);
+    setError("");
+    try {
+      const uploadData = new FormData();
+      uploadData.append("file", file);
+      const response = await fetch("/api/upload", {
+        method: "POST",
+        body: uploadData,
+      });
+      const data = await response.json();
+      if (!response.ok) {
+        setError(data.error || "Échec de l'envoi de l'image.");
+        return;
+      }
+      setImageUrl(data.url);
+    } catch {
+      setError("Échec de l'envoi de l'image. Réessayez.");
+    } finally {
+      setIsUploading(false);
+    }
+  }
 
   async function handleSubmit(event) {
     event.preventDefault();
@@ -33,12 +66,13 @@ export default function ProductForm({ product }) {
       category: formData.get("category"),
       location: formData.get("location"),
       type: formData.get("type"),
-      image: formData.get("image") || "",
+      image: imageUrl,
       quantity: formData.get("quantity"),
       shippingAvailable,
       shippingDelay: shippingAvailable
         ? formData.get("shippingDelay") || ""
         : "",
+      ...(isAdmin ? { ownerId: formData.get("ownerId") } : {}),
     };
 
     try {
@@ -57,7 +91,7 @@ export default function ProductForm({ product }) {
         return;
       }
 
-      router.push("/dashboard/produits");
+      router.push(redirectTo);
       router.refresh();
     } catch {
       setError("Une erreur est survenue. Réessayez.");
@@ -71,6 +105,31 @@ export default function ProductForm({ product }) {
         <p className="rounded-md border border-red-200 bg-red-50 p-3 text-sm text-red-700">
           {error}
         </p>
+      )}
+
+      {isAdmin && (
+        <div>
+          <label htmlFor="ownerId" className="block text-sm font-medium text-gray-700">
+            Propriétaire du produit
+          </label>
+          <select
+            id="ownerId"
+            name="ownerId"
+            required
+            defaultValue={product?.ownerId || ""}
+            className="mt-1 w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-brand focus:outline-none"
+          >
+            <option value="" disabled>
+              Choisir un membre...
+            </option>
+            {members.map((member) => (
+              <option key={member.id} value={member.id}>
+                {member.username}
+                {member.companyName ? ` (${member.companyName})` : ""}
+              </option>
+            ))}
+          </select>
+        </div>
       )}
 
       <div>
@@ -199,17 +258,27 @@ export default function ProductForm({ product }) {
       </div>
 
       <div>
-        <label htmlFor="image" className="block text-sm font-medium text-gray-700">
-          Image (URL, facultatif)
+        <label htmlFor="imageFile" className="block text-sm font-medium text-gray-700">
+          Photo du produit
         </label>
+        {imageUrl && (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img
+            src={imageUrl}
+            alt="Aperçu"
+            className="mt-2 h-32 w-32 rounded-md border border-gray-200 object-cover"
+          />
+        )}
         <input
-          id="image"
-          name="image"
-          type="url"
-          placeholder="https://..."
-          defaultValue={product?.image || ""}
-          className="mt-1 w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-brand focus:outline-none"
+          id="imageFile"
+          type="file"
+          accept="image/*"
+          onChange={handleImageChange}
+          className="mt-2 block w-full text-sm text-gray-600 file:mr-3 file:rounded-md file:border-0 file:bg-brand-light file:px-3 file:py-2 file:text-sm file:font-medium file:text-brand"
         />
+        {isUploading && (
+          <p className="mt-1 text-xs text-gray-500">Envoi de l&apos;image...</p>
+        )}
       </div>
 
       <div className="rounded-md border border-gray-200 p-4">
@@ -245,7 +314,7 @@ export default function ProductForm({ product }) {
 
       <button
         type="submit"
-        disabled={isSubmitting}
+        disabled={isSubmitting || isUploading}
         className="mt-2 rounded-md bg-brand px-5 py-2 text-sm font-medium text-white hover:bg-brand-dark disabled:opacity-60"
       >
         {isSubmitting
