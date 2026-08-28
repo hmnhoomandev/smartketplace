@@ -1,5 +1,6 @@
-// Données fictives/de démonstration pour la Phase 1. À remplacer par de vraies données
-// (API/base de données) dans une phase ultérieure.
+// Le site utilise maintenant la vraie base de données (table Product) —
+// ce fichier ne sert plus qu'à alimenter scripts/seed-products.mjs pour
+// pré-remplir une base de données vide avec des produits de démonstration.
 export const products = [
   {
     id: "1",
@@ -146,7 +147,3 @@ export const products = [
       "Une consultation vidéo d'une heure pour vous aider à planifier ou améliorer le site web d'une petite entreprise ou association.",
   },
 ];
-
-export function getProductById(id) {
-  return products.find((product) => product.id === id);
-}
