@@ -26,6 +26,12 @@ enum AccountType {
   COMPANY
 }
 
+enum ProductType {
+  PHYSICAL
+  DIGITAL
+  SERVICE
+}
+
 model Member {
   id           String            @id @default(cuid())
   username     String            @unique
@@ -52,22 +58,21 @@ model PasswordResetToken {
   createdAt DateTime @default(now())
 }
 
-// Préparé pour la Phase suivante (tableau de bord vendeur) — pas encore
-// utilisé par l'UI, mais le schéma est prêt pour éviter une migration
-// cassante plus tard.
 model Product {
-  id                String   @id @default(cuid())
+  id                String      @id @default(cuid())
   title             String
   description       String
-  price             Decimal  @db.Decimal(10, 2)
-  currency          String   @default("CHF")
+  price             Decimal     @db.Decimal(10, 2)
+  currency          String      @default("CHF")
   category          String
   location          String
-  quantity          Int      @default(1)
-  shippingAvailable Boolean  @default(false)
+  type              ProductType @default(PHYSICAL)
+  image             String?
+  quantity          Int         @default(1)
+  shippingAvailable Boolean     @default(false)
   shippingDelay     String?
   ownerId           String
-  owner             Member   @relation(fields: [ownerId], references: [id], onDelete: Cascade)
-  createdAt         DateTime @default(now())
-  updatedAt         DateTime @updatedAt
+  owner             Member      @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+  createdAt         DateTime    @default(now())
+  updatedAt         DateTime    @updatedAt
 }
