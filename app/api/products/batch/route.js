@@ -15,7 +15,9 @@ export async function GET(request) {
   const products = (
     await prisma.product.findMany({
       where: { id: { in: ids } },
-      include: { owner: { select: { id: true, username: true } } },
+      include: {
+        owner: { select: { id: true, username: true, companyName: true } },
+      },
     })
   ).map((product) => ({ ...product, price: Number(product.price) }));
 

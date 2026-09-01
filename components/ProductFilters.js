@@ -17,9 +17,7 @@ export default function ProductFilters({ products, filters, onChange }) {
       if (!map.has(product.owner.id)) {
         map.set(product.owner.id, {
           id: product.owner.id,
-          label: product.owner.companyName
-            ? `${product.owner.username} (${product.owner.companyName})`
-            : product.owner.username,
+          label: product.owner.companyName || product.owner.username,
         });
       }
     }

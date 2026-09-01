@@ -107,7 +107,8 @@ export default function CartPage() {
                     {row.product.title}
                   </Link>
                   <p className="text-sm text-gray-500">
-                    Vendu par {row.product.owner.username}
+                    Vendu par{" "}
+                    {row.product.owner.companyName || row.product.owner.username}
                   </p>
                   <p className="text-sm font-semibold text-brand">
                     {row.product.price} {row.product.currency}

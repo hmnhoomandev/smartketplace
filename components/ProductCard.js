@@ -27,6 +27,12 @@ export default function ProductCard({ product }) {
           {product.title}
         </h3>
         <p className="text-sm text-gray-500">{product.location}</p>
+        <p className="text-xs text-gray-500">
+          Vendu par{" "}
+          <span className="font-medium text-gray-700">
+            {product.owner.companyName || product.owner.username}
+          </span>
+        </p>
         <p className="mt-auto pt-2 font-semibold text-brand">
           {product.price} {product.currency}
         </p>

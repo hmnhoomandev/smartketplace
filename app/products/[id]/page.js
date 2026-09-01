@@ -11,7 +11,10 @@ const TYPE_LABELS = {
 
 export default async function ProductDetailPage({ params }) {
   const { id } = await params;
-  const product = await prisma.product.findUnique({ where: { id } });
+  const product = await prisma.product.findUnique({
+    where: { id },
+    include: { owner: { select: { username: true, companyName: true } } },
+  });
 
   if (!product) {
     notFound();
@@ -50,6 +53,12 @@ export default async function ProductDetailPage({ params }) {
             {product.title}
           </h1>
           <p className="text-sm text-gray-500">{product.location}</p>
+          <p className="text-sm text-gray-500">
+            Vendu par{" "}
+            <span className="font-medium text-gray-700">
+              {product.owner.companyName || product.owner.username}
+            </span>
+          </p>
           <p className="text-2xl font-semibold text-brand">
             {Number(product.price)} {product.currency}
           </p>
