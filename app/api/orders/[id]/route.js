@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { auth } from "@/auth";
 import { prisma } from "@/lib/prisma";
+import { logActivity, ActivityAction } from "@/lib/activityLog";
 
 const SELLER_STATUSES = ["ACCEPTED", "DECLINED", "COMPLETED"];
 const BUYER_STATUSES = ["CANCELLED"];
@@ -40,6 +41,14 @@ export async function PATCH(request, { params }) {
   const updated = await prisma.order.update({
     where: { id },
     data: { status },
+  });
+
+  await logActivity({
+    actorId: session.user.id,
+    action: ActivityAction.ORDER_STATUS_CHANGED,
+    targetType: "Order",
+    targetId: updated.id,
+    metadata: { from: order.status, to: status },
   });
 
   return NextResponse.json({ order: updated });

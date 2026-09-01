@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { auth } from "@/auth";
 import { prisma } from "@/lib/prisma";
+import { logActivity, ActivityAction } from "@/lib/activityLog";
 
 const VALID_STATUSES = ["APPROVED", "REJECTED"];
 
@@ -21,6 +22,17 @@ export async function PATCH(request, { params }) {
     where: { id },
     data: { status },
     omit: { passwordHash: true },
+  });
+
+  await logActivity({
+    actorId: session.user.id,
+    action:
+      status === "APPROVED"
+        ? ActivityAction.MEMBER_APPROVED
+        : ActivityAction.MEMBER_REJECTED,
+    targetType: "Member",
+    targetId: member.id,
+    metadata: { username: member.username },
   });
 
   return NextResponse.json({ member });

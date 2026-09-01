@@ -57,6 +57,7 @@ model Member {
   products     Product[]
   purchases    Order[]           @relation("BuyerOrders")
   sales        Order[]           @relation("SellerOrders")
+  activityLogs ActivityLog[]
 }
 
 model PasswordResetToken {
@@ -105,4 +106,36 @@ model Order {
   message   String?
   createdAt DateTime    @default(now())
   updatedAt DateTime    @updatedAt
+}
+
+// Journal d'activité : trace les actions importantes (inscriptions,
+// validations admin, produits, commandes) pour audit et démonstration.
+model ActivityLog {
+  id         String   @id @default(cuid())
+  action     String
+  targetType String?
+  targetId   String?
+  metadata   Json?
+  actorId    String?
+  actor      Member?  @relation(fields: [actorId], references: [id], onDelete: SetNull)
+  createdAt  DateTime @default(now())
+
+  @@index([createdAt])
+  @@index([action])
+}
+
+// Erreurs serveur capturées automatiquement (via l'API onRequestError de
+// Next.js) ou manuellement dans les routes — sert de "error tracking" léger
+// sans dépendre d'un service externe.
+model ErrorLog {
+  id         String   @id @default(cuid())
+  message    String
+  stack      String?
+  path       String?
+  method     String?
+  routeType  String?
+  metadata   Json?
+  createdAt  DateTime @default(now())
+
+  @@index([createdAt])
 }

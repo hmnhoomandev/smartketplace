@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { hashPassword } from "@/lib/password";
 import { registerSchema } from "@/lib/validation";
+import { logActivity, ActivityAction } from "@/lib/activityLog";
 
 export async function POST(request) {
   const body = await request.json();
@@ -36,7 +37,7 @@ export async function POST(request) {
 
   const passwordHash = await hashPassword(password);
 
-  await prisma.member.create({
+  const member = await prisma.member.create({
     data: {
       username,
       email,
@@ -45,6 +46,14 @@ export async function POST(request) {
       accountType,
       companyName: accountType === "COMPANY" ? companyName : null,
     },
+  });
+
+  await logActivity({
+    actorId: member.id,
+    action: ActivityAction.MEMBER_REGISTERED,
+    targetType: "Member",
+    targetId: member.id,
+    metadata: { username, accountType },
   });
 
   return NextResponse.json(

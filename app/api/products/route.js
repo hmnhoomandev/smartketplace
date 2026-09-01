@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { auth } from "@/auth";
 import { prisma } from "@/lib/prisma";
 import { productSchema } from "@/lib/validation";
+import { logActivity, ActivityAction } from "@/lib/activityLog";
 
 export async function GET() {
   const session = await auth();
@@ -64,6 +65,14 @@ export async function POST(request) {
       shippingDelay: data.shippingAvailable ? data.shippingDelay || null : null,
       ownerId,
     },
+  });
+
+  await logActivity({
+    actorId: session.user.id,
+    action: ActivityAction.PRODUCT_CREATED,
+    targetType: "Product",
+    targetId: product.id,
+    metadata: { title: product.title, ownerId },
   });
 
   return NextResponse.json({ product }, { status: 201 });

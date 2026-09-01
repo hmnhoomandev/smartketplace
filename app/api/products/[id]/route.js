@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { auth } from "@/auth";
 import { prisma } from "@/lib/prisma";
 import { productSchema } from "@/lib/validation";
+import { logActivity, ActivityAction } from "@/lib/activityLog";
 
 async function assertAccess(id, session) {
   const product = await prisma.product.findUnique({ where: { id } });
@@ -68,6 +69,20 @@ export async function PATCH(request, { params }) {
     },
   });
 
+  await logActivity({
+    actorId: session.user.id,
+    action:
+      ownerId !== existing.ownerId
+        ? ActivityAction.PRODUCT_REASSIGNED
+        : ActivityAction.PRODUCT_UPDATED,
+    targetType: "Product",
+    targetId: product.id,
+    metadata:
+      ownerId !== existing.ownerId
+        ? { title: product.title, fromOwnerId: existing.ownerId, toOwnerId: ownerId }
+        : { title: product.title },
+  });
+
   return NextResponse.json({ product });
 }
 
@@ -84,6 +99,14 @@ export async function DELETE(request, { params }) {
   }
 
   await prisma.product.delete({ where: { id } });
+
+  await logActivity({
+    actorId: session.user.id,
+    action: ActivityAction.PRODUCT_DELETED,
+    targetType: "Product",
+    targetId: existing.id,
+    metadata: { title: existing.title, ownerId: existing.ownerId },
+  });
 
   return NextResponse.json({ ok: true });
 }

@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { auth } from "@/auth";
 import { prisma } from "@/lib/prisma";
+import { logActivity, ActivityAction } from "@/lib/activityLog";
 
 export async function POST(request) {
   const session = await auth();
@@ -60,6 +61,18 @@ export async function POST(request) {
 
   const orders = await prisma.$transaction(
     ordersToCreate.map((data) => prisma.order.create({ data }))
+  );
+
+  await Promise.all(
+    orders.map((order) =>
+      logActivity({
+        actorId: session.user.id,
+        action: ActivityAction.ORDER_CREATED,
+        targetType: "Order",
+        targetId: order.id,
+        metadata: { productId: order.productId, sellerId: order.sellerId },
+      })
+    )
   );
 
   return NextResponse.json({ orders }, { status: 201 });
