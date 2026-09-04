@@ -57,7 +57,7 @@ export default function ProductFilters({ products, filters, onChange }) {
         <div className="mt-3 grid grid-cols-2 gap-3 rounded-md border border-gray-200 bg-gray-50 p-4 sm:grid-cols-3 lg:grid-cols-6">
           <div>
             <label className="block text-xs font-medium text-gray-600">
-              Prix min (KNN/CHF)
+              Prix min (KKN/CHF)
             </label>
             <input
               type="number"
@@ -70,7 +70,7 @@ export default function ProductFilters({ products, filters, onChange }) {
 
           <div>
             <label className="block text-xs font-medium text-gray-600">
-              Prix max (KNN/CHF)
+              Prix max (KKN/CHF)
             </label>
             <input
               type="number"

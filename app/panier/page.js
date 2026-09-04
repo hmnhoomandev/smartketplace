@@ -141,7 +141,7 @@ export default function CartPage() {
           <div className="mt-6 flex items-center justify-between border-t border-gray-200 pt-4">
             <span className="text-lg font-semibold text-gray-900">Total</span>
             <span className="text-lg font-semibold text-brand">
-              {total.toFixed(2)} KNN/CHF
+              {total.toFixed(2)} KKN/CHF
             </span>
           </div>
 
