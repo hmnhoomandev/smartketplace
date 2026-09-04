@@ -1,35 +1,23 @@
-// Taxonomie des catégories, alignée sur la structure réelle de keepinuse.ch
-// (catégories principales + sous-catégories). Utilisée par le mega-menu de
-// navigation et le filtre de recherche.
+// Taxonomie des catégories définie par Jean (remplace l'ancienne taxonomie
+// inspirée de keepinuse.ch). Ces catégories décrivent le type de service
+// rendu par l'association plutôt qu'un type de produit physique.
 export const categoryTree = [
-  {
-    name: "Aménagement intérieur",
-    subs: ["Décoration & accessoires", "Luminaires & lampes"],
-  },
-  { name: "Animaux (accessoires uniquement)", subs: [] },
-  { name: "Art – Antiquités", subs: [] },
-  { name: "Audio – TV – Vidéo", subs: [] },
-  { name: "Bijouterie", subs: [] },
-  { name: "Bricolage", subs: [] },
-  { name: "Divers Inclassables", subs: [] },
-  { name: "Enfants-Bébés", subs: [] },
-  { name: "Fournitures de bureau", subs: [] },
-  { name: "Horlogerie", subs: [] },
-  { name: "Informatique", subs: [] },
-  { name: "Jardin-Jardinage", subs: [] },
-  { name: "Jeux-Jouets", subs: ["Jeux vidéo"] },
-  { name: "Livres-BDs-Revues", subs: ["Enfants"] },
-  { name: "Ménage-Maison", subs: ["Electroménager", "Vaisselle & ustensiles"] },
-  { name: "Mobilier", subs: ["Literie (sommier-matelas-textiles)", "Meubles"] },
-  { name: "Musique", subs: ["Vinyles"] },
-  { name: "Photographie", subs: [] },
-  { name: "Santé-Beauté", subs: [] },
-  { name: "Sports - Loisirs", subs: [] },
-  { name: "Véhicules", subs: ["Accessoires", "Vélos-Vélomoteurs"] },
-  {
-    name: "Vêtements & accessoires",
-    subs: ["Chaussures", "Enfants", "Femmes", "Hommes"],
-  },
+  { name: "Administration", subs: [] },
+  { name: "Mobilier", subs: [] },
+  { name: "Production culinaire", subs: [] },
+  { name: "Comptabilité", subs: [] },
+  { name: "Service de ressources humaines", subs: [] },
+  { name: "Bénévolat", subs: [] },
+  { name: "Événementiel", subs: [] },
+  { name: "Communication", subs: [] },
+  { name: "Relations publiques", subs: [] },
+  { name: "Graphisme & design", subs: [] },
+  { name: "Projets", subs: [] },
+  { name: "Financement", subs: [] },
+  { name: "IT", subs: [] },
+  { name: "Juridique", subs: [] },
+  { name: "Promotion artistique & édition", subs: [] },
+  { name: "Écriture et média", subs: [] },
 ];
 
 export const categories = categoryTree.map((category) => category.name);
