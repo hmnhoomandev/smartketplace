@@ -137,7 +137,7 @@ async function main() {
         title: item.title,
         description: `${item.description} (${item.assoc}, association membre de Kultura.)`,
         price: item.price,
-        currency: "CHF",
+        currency: "KNN/CHF",
         category: item.category,
         location: "Genève",
         type: item.type,

@@ -168,7 +168,7 @@ export default function ProductForm({
       <div className="grid grid-cols-2 gap-4">
         <div>
           <label htmlFor="price" className="block text-sm font-medium text-gray-700">
-            Prix (CHF)
+            Prix (KNN/CHF)
           </label>
           <input
             id="price"

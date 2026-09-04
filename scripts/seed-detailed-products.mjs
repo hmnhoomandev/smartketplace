@@ -251,7 +251,7 @@ async function main() {
           title: listing.title,
           description: listing.description,
           price: listing.price,
-          currency: "CHF",
+          currency: "KNN/CHF",
           category: listing.category,
           location: "Genève",
           type: "SERVICE",
